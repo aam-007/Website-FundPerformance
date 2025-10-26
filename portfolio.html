@@ -70,12 +70,18 @@ header h1 {
   font-size: 3rem;
   font-weight: 500;
 }
+header h4 {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #555;
+  font-weight: normal;
+}
 header p {
   margin-top: 0.5rem;
   color: #555;
   font-size: 1.2rem;
 }
-body.dark header p {
+body.dark header p, body.dark header h4 {
   color: #ccc;
 }
 
@@ -84,10 +90,14 @@ main {
   max-width: 1400px;
   margin: 0 auto;
   padding: 2vh 2vw;
-  overflow-x: auto;
 }
 
 /* Table Styles */
+.table-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -160,10 +170,14 @@ body.dark .negative {
 }
 
 /* Canvas / Charts */
+.chart-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
 canvas {
-  max-width: 600px;
-  margin: 2rem auto;
-  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 /* Toggle button styles - matching index.html */
@@ -194,6 +208,152 @@ footer {
 body.dark footer {
   color: #aaa;
 }
+
+/* Mobile menu styles */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #111;
+  transition: all 0.3s ease;
+}
+body.dark .mobile-menu-btn {
+  color: #f9f9f9;
+}
+
+/* Button container */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 1rem;
+  }
+  .nav-links a {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+  }
+  header h1 {
+    font-size: 2.5rem;
+  }
+  header h4, header p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile navigation */
+  nav {
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 1rem 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+  }
+  body.dark .nav-links {
+    background-color: #111;
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.05);
+  }
+  .nav-links.active {
+    display: flex;
+  }
+  .nav-links a {
+    display: block;
+    padding: 0.75rem 2vw;
+    border-radius: 0;
+    border-bottom: 1px solid #eee;
+  }
+  body.dark .nav-links a {
+    border-bottom: 1px solid #555;
+  }
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+  
+  /* Header adjustments */
+  header {
+    padding: 4vh 2vw;
+  }
+  header h1 {
+    font-size: 2rem;
+  }
+  header h4, header p {
+    font-size: 1rem;
+  }
+  
+  /* Main content adjustments */
+  main {
+    padding: 2vh 2vw;
+  }
+  
+  /* Table adjustments */
+  table {
+    min-width: 1000px;
+  }
+  th, td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Button adjustments */
+  .button-container {
+    justify-content: center;
+  }
+  .theme-toggle, .export-btn, .filter-btn, .chart-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Footer adjustments */
+  footer {
+    padding: 2vh 2vw;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.75rem;
+  }
+  header h4, header p {
+    font-size: 0.9rem;
+  }
+  .theme-toggle {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .filter-btn, .chart-btn, .export-btn {
+    width: 80%;
+    margin: 0.3rem 0;
+  }
+}
 </style>
 
 </head>
@@ -203,13 +363,14 @@ body.dark footer {
 
 <!-- Navigation Bar - matching index.html -->
 <nav>
-   <div class="nav-links">
-        <a href="index.html">Fund Performance</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="detailedperformance.html">Detailed Performance</a>
-        <a href="investmentphilosophy.html">Investment Philosophy</a>
-        <a href="returnscalc.html">Returns Calculator</a>
-        <a href="aboutme.html">About Me</a>
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Fund Performance</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="detailedperformance.html">Detailed Performance</a>
+    <a href="investmentphilosophy.html">Investment Philosophy</a>
+    <a href="returnscalc.html">Returns Calculator</a>
+    <a href="aboutme.html">About Me</a>
   </div>
 </nav>
 
@@ -220,7 +381,7 @@ body.dark footer {
 </header>
 
 <main>
-  <div>
+  <div class="button-container">
     <button class="export-btn" id="exportBtn">Export to Excel</button>
     <button class="filter-btn" id="showWinners">Show Winners</button>
     <button class="filter-btn" id="showLosers">Show Losers</button>
@@ -228,75 +389,78 @@ body.dark footer {
     <button class="filter-btn" id="showSmallCap">Small Cap</button>
     <button class="filter-btn" id="showMidCap">Mid Cap</button>
     <button class="filter-btn" id="showLargeCap">Large Cap</button>
-    <button class="chart-btn" id="marketCapChartBtn">Market Cap Pie Chart</button>
-    <button class="chart-btn" id="sectorChartBtn">Sector Allocation Pie Chart</button>
+    <button class="chart-btn" id="marketCapChartBtn">Market Cap Chart</button>
+    <button class="chart-btn" id="sectorChartBtn">Sector Chart</button>
   </div>
 
-  <table id="portfolioTable">
-    <thead>
-      <tr>
-        <th>Stock Name</th>
-        <th>Sector</th>
-        <th>Type</th>
-        <th>Allocation (INR)</th>
-        <th>Buy Price (INR)</th>
-        <th>Shares Bought</th>
-        <th>Date of Purchase</th>
-        <th>Current Price</th>
-        <th>Returns</th>
-        <th>Performance</th>
-      </tr>
-    </thead>
-    <tbody>
-       <tr class="negative"><td>21st Cent. Mgmt.</td><td>Services</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 72.00</td><td>323</td><td>13.04.2025</td><td>₹ 46.88</td><td>-34.89%</td><td>Negative</td></tr>
-      <tr class="negative"><td>Shilchar Tech.</td><td>Technology</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 5,121.00</td><td>4</td><td>13.04.2025</td><td>₹ 4,315.50</td><td>-15.73%</td><td>Negative</td></tr>
-      <tr class="negative"><td>Jyoti Resins</td><td>Materials</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,275.00</td><td>18</td><td>13.04.2025</td><td>₹ 1,270.45</td><td>-0.36%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Coal India</td><td>Energy</td><td>Large Cap</td><td>₹ 23,256.00</td><td>₹ 392.00</td><td>59</td><td>13.04.2025</td><td>₹ 394.05</td><td>0.52%</td><td>Positive</td></tr>
-      <tr class="positive"><td>Everlon Fin.</td><td>Finance</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 117.00</td><td>199</td><td>13.04.2025</td><td>₹ 127.60</td><td>9.06%</td><td>Positive</td></tr>
-      <tr class="negative"><td>Prithvi Exchange</td><td>Financial Services</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 149.00</td><td>156</td><td>13.04.2025</td><td>₹ 134.15</td><td>-9.97%</td><td>Negative</td></tr>
-      <tr class="negative"><td>Ganesh Housing</td><td>Real Estate</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 1,022.00</td><td>22</td><td>13.04.2025</td><td>₹ 872.65</td><td>-14.61%</td><td>Negative</td></tr>
-      <tr class="negative"><td>P & G Health Ltd</td><td>Healthcare</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 13,687.00</td><td>1</td><td>13.04.2025</td><td>₹ 13,552.00</td><td>-0.99%</td><td>Negative</td></tr>
-      <tr class="negative"><td>Dynacons Sys.</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,004.00</td><td>23</td><td>13.04.2025</td><td>₹ 922.15</td><td>-8.15%</td><td>Negative</td></tr>
-      <tr class="negative"><td>Taparia Tools</td><td>Industrial</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 18.00</td><td>1,284</td><td>13.04.2025</td><td>₹ 13.37</td><td>-25.72%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Uni Abex Alloy</td><td>Materials</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 2,617.00</td><td>8</td><td>13.04.2025</td><td>₹ 3,160.50</td><td>20.77%</td><td>Positive</td></tr>
-      <tr class="negative"><td>Kothari Petroche</td><td>Chemicals</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 162.00</td><td>143</td><td>13.04.2025</td><td>₹ 142.34</td><td>-12.14%</td><td>Negative</td></tr>
-      <tr class="negative"><td>Brady & Morris</td><td>Consulting</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,322.00</td><td>17</td><td>13.04.2025</td><td>₹ 1,120.00</td><td>-15.28%</td><td>Negative</td></tr>
-      <tr class="negative"><td>Danlaw Tech.</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 880.00</td><td>26</td><td>13.04.2025</td><td>₹ 756.30</td><td>-14.06%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Authum Invest</td><td>Finance</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 1,616.00</td><td>14</td><td>13.04.2025</td><td>₹ 3,033.30</td><td>87.70%</td><td>Positive</td></tr>
-      <tr class="negative"><td>Sharda Motor</td><td>Automobile</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,501.00</td><td>15</td><td>13.04.2025</td><td>₹ 1,052.50</td><td>-29.88%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Fineotex Chem</td><td>Chemicals</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 228.00</td><td>102</td><td>13.04.2025</td><td>₹ 256.12</td><td>12.33%</td><td>Positive</td></tr>
-      <tr class="positive"><td>Indrapr.Medical</td><td>Healthcare</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 402.00</td><td>57</td><td>13.04.2025</td><td>₹ 544.40</td><td>35.42%</td><td>Positive</td></tr>
-      <tr class="positive"><td>Tanla Platforms</td><td>Technology</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 486.00</td><td>47</td><td>13.04.2025</td><td>₹ 613.90</td><td>26.32%</td><td>Positive</td></tr>
-      <tr class="positive"><td>Mahanagar Gas</td><td>Utilities</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 1,279.00</td><td>18</td><td>13.04.2025</td><td>₹ 1,305.10</td><td>2.04%</td><td>Positive</td></tr>
-      <tr class="positive"><td>SKM Egg Prod.</td><td>Agriculture</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 198.00</td><td>117</td><td>13.04.2025</td><td>₹ 362.45</td><td>83.06%</td><td>Positive</td></tr>
-      <tr class="positive"><td>Arrow Greentech</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 587.00</td><td>39</td><td>13.04.2025</td><td>₹ 646.85</td><td>10.20%</td><td>Positive</td></tr>
-      <tr class="positive"><td>Nitta Gelatin</td><td>Healthcare</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 705.00</td><td>32</td><td>13.04.2025</td><td>₹ 862.10</td><td>22.28%</td><td>Positive</td></tr>
-      <tr class="positive"><td>MSTC</td><td>Infrastructure</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 500.00</td><td>46</td><td>13.04.2025</td><td>₹ 533.40</td><td>6.68%</td><td>Positive</td></tr>
-      <tr class="negative"><td>Kriti Nutrients</td><td>Agriculture</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 101.00</td><td>230</td><td>13.04.2025</td><td>₹ 87.00</td><td>-13.86%</td><td>Negative</td></tr>
-      <tr class="negative"><td>G M Polyplast</td><td>Industrial</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 90.00</td><td>258</td><td>13.04.2025</td><td>₹ 80.00</td><td>-11.11%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Stylam Industrie</td><td>Industrial</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,686.00</td><td>13</td><td>13.04.2025</td><td>₹ 1,905.20</td><td>13.00%</td><td>Positive</td></tr>
-      <tr class="negative"><td>Vibrant Glo. Cap</td><td>Finance</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 44.00</td><td>532</td><td>13.04.2025</td><td>₹ 41.36</td><td>-6.00%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Kamdhenu</td><td>Agriculture</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 26.00</td><td>888</td><td>13.04.2025</td><td>₹ 27.95</td><td>7.50%</td><td>Positive</td></tr>
-      <tr class="negative"><td>Likhitha Infra.</td><td>Construction</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 272.00</td><td>85</td><td>13.04.2025</td><td>₹ 233.34</td><td>-14.21%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Nucleus Soft.</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 808.00</td><td>28</td><td>13.04.2025</td><td>₹ 1,003.20</td><td>24.16%</td><td>Positive</td></tr>
-      <tr class="negative"><td>Keynote Finan.</td><td>Finance</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 438.00</td><td>53</td><td>13.04.2025</td><td>₹ 260.69</td><td>-40.48%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Volt.Transform.</td><td>Renewable Energy</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 6,952.00</td><td>3</td><td>13.04.2025</td><td>₹ 7,217.00</td><td>3.81%</td><td>Positive</td></tr>
-      <tr class="positive"><td>Elecon Engg.Co</td><td>Industrial</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 435.00</td><td>53</td><td>13.04.2025</td><td>₹ 569.10</td><td>30.83%</td><td>Positive</td></tr>
-      <tr class="positive"><td>Shreyans Inds.</td><td>Manufacturing</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 182.00</td><td>127</td><td>13.04.2025</td><td>₹ 228.71</td><td>25.66%</td><td>Positive</td></tr>
-      <tr class="negative"><td>Sharda Ispat</td><td>Metals</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 295.00</td><td>78</td><td>13.04.2025</td><td>₹ 206.55</td><td>-29.98%</td><td>Negative</td></tr>
-      <tr class="negative"><td>Prolife Indust.</td><td>Healthcare</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 215.00</td><td>108</td><td>13.04.2025</td><td>₹ 103.80</td><td>-51.72%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Vikram Thermo</td><td>Industrial</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 166.00</td><td>139</td><td>13.04.2025</td><td>₹ 166.45</td><td>0.27%</td><td>Positive</td></tr>
-      <tr class="negative"><td>Alldigi Tech</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 933.00</td><td>24</td><td>13.04.2025</td><td>₹ 889.15</td><td>-4.70%</td><td>Negative</td></tr>
-      <tr class="negative"><td>U P Hotels</td><td>Hospitality</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,600.00</td><td>14</td><td>13.04.2025</td><td>₹ 1,550.05</td><td>-3.12%</td><td>Negative</td></tr>
-      <tr class="negative"><td>SKP Securities</td><td>Finance</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 114.00</td><td>203</td><td>13.04.2025</td><td>₹ 109.05</td><td>-4.34%</td><td>Negative</td></tr>
-      <tr class="positive"><td>Natco Pharma</td><td>Pharmaceuticals</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 778.00</td><td>29</td><td>13.04.2025</td><td>₹ 824.90</td><td>6.03%</td><td>Positive</td></tr>
-      <tr class="positive"><td>Infibeam Avenues</td><td>Technology</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 16.00</td><td>1,431</td><td>13.04.2025</td><td>₹ 18.92</td><td>18.25%</td><td>Positive</td></tr>
-    
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table id="portfolioTable">
+      <thead>
+        <tr>
+          <th>Stock Name</th>
+          <th>Sector</th>
+          <th>Type</th>
+          <th>Allocation (INR)</th>
+          <th>Buy Price (INR)</th>
+          <th>Shares Bought</th>
+          <th>Date of Purchase</th>
+          <th>Current Price</th>
+          <th>Returns</th>
+          <th>Performance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="negative"><td>21st Cent. Mgmt.</td><td>Services</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 72.00</td><td>323</td><td>13.04.2025</td><td>₹ 46.88</td><td>-34.89%</td><td>Negative</td></tr>
+        <tr class="negative"><td>Shilchar Tech.</td><td>Technology</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 5,121.00</td><td>4</td><td>13.04.2025</td><td>₹ 4,315.50</td><td>-15.73%</td><td>Negative</td></tr>
+        <tr class="negative"><td>Jyoti Resins</td><td>Materials</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,275.00</td><td>18</td><td>13.04.2025</td><td>₹ 1,270.45</td><td>-0.36%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Coal India</td><td>Energy</td><td>Large Cap</td><td>₹ 23,256.00</td><td>₹ 392.00</td><td>59</td><td>13.04.2025</td><td>₹ 394.05</td><td>0.52%</td><td>Positive</td></tr>
+        <tr class="positive"><td>Everlon Fin.</td><td>Finance</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 117.00</td><td>199</td><td>13.04.2025</td><td>₹ 127.60</td><td>9.06%</td><td>Positive</td></tr>
+        <tr class="negative"><td>Prithvi Exchange</td><td>Financial Services</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 149.00</td><td>156</td><td>13.04.2025</td><td>₹ 134.15</td><td>-9.97%</td><td>Negative</td></tr>
+        <tr class="negative"><td>Ganesh Housing</td><td>Real Estate</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 1,022.00</td><td>22</td><td>13.04.2025</td><td>₹ 872.65</td><td>-14.61%</td><td>Negative</td></tr>
+        <tr class="negative"><td>P & G Health Ltd</td><td>Healthcare</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 13,687.00</td><td>1</td><td>13.04.2025</td><td>₹ 13,552.00</td><td>-0.99%</td><td>Negative</td></tr>
+        <tr class="negative"><td>Dynacons Sys.</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,004.00</td><td>23</td><td>13.04.2025</td><td>₹ 922.15</td><td>-8.15%</td><td>Negative</td></tr>
+        <tr class="negative"><td>Taparia Tools</td><td>Industrial</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 18.00</td><td>1,284</td><td>13.04.2025</td><td>₹ 13.37</td><td>-25.72%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Uni Abex Alloy</td><td>Materials</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 2,617.00</td><td>8</td><td>13.04.2025</td><td>₹ 3,160.50</td><td>20.77%</td><td>Positive</td></tr>
+        <tr class="negative"><td>Kothari Petroche</td><td>Chemicals</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 162.00</td><td>143</td><td>13.04.2025</td><td>₹ 142.34</td><td>-12.14%</td><td>Negative</td></tr>
+        <tr class="negative"><td>Brady & Morris</td><td>Consulting</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,322.00</td><td>17</td><td>13.04.2025</td><td>₹ 1,120.00</td><td>-15.28%</td><td>Negative</td></tr>
+        <tr class="negative"><td>Danlaw Tech.</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 880.00</td><td>26</td><td>13.04.2025</td><td>₹ 756.30</td><td>-14.06%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Authum Invest</td><td>Finance</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 1,616.00</td><td>14</td><td>13.04.2025</td><td>₹ 3,033.30</td><td>87.70%</td><td>Positive</td></tr>
+        <tr class="negative"><td>Sharda Motor</td><td>Automobile</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,501.00</td><td>15</td><td>13.04.2025</td><td>₹ 1,052.50</td><td>-29.88%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Fineotex Chem</td><td>Chemicals</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 228.00</td><td>102</td><td>13.04.2025</td><td>₹ 256.12</td><td>12.33%</td><td>Positive</td></tr>
+        <tr class="positive"><td>Indrapr.Medical</td><td>Healthcare</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 402.00</td><td>57</td><td>13.04.2025</td><td>₹ 544.40</td><td>35.42%</td><td>Positive</td></tr>
+        <tr class="positive"><td>Tanla Platforms</td><td>Technology</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 486.00</td><td>47</td><td>13.04.2025</td><td>₹ 613.90</td><td>26.32%</td><td>Positive</td></tr>
+        <tr class="positive"><td>Mahanagar Gas</td><td>Utilities</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 1,279.00</td><td>18</td><td>13.04.2025</td><td>₹ 1,305.10</td><td>2.04%</td><td>Positive</td></tr>
+        <tr class="positive"><td>SKM Egg Prod.</td><td>Agriculture</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 198.00</td><td>117</td><td>13.04.2025</td><td>₹ 362.45</td><td>83.06%</td><td>Positive</td></tr>
+        <tr class="positive"><td>Arrow Greentech</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 587.00</td><td>39</td><td>13.04.2025</td><td>₹ 646.85</td><td>10.20%</td><td>Positive</td></tr>
+        <tr class="positive"><td>Nitta Gelatin</td><td>Healthcare</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 705.00</td><td>32</td><td>13.04.2025</td><td>₹ 862.10</td><td>22.28%</td><td>Positive</td></tr>
+        <tr class="positive"><td>MSTC</td><td>Infrastructure</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 500.00</td><td>46</td><td>13.04.2025</td><td>₹ 533.40</td><td>6.68%</td><td>Positive</td></tr>
+        <tr class="negative"><td>Kriti Nutrients</td><td>Agriculture</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 101.00</td><td>230</td><td>13.04.2025</td><td>₹ 87.00</td><td>-13.86%</td><td>Negative</td></tr>
+        <tr class="negative"><td>G M Polyplast</td><td>Industrial</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 90.00</td><td>258</td><td>13.04.2025</td><td>₹ 80.00</td><td>-11.11%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Stylam Industrie</td><td>Industrial</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,686.00</td><td>13</td><td>13.04.2025</td><td>₹ 1,905.20</td><td>13.00%</td><td>Positive</td></tr>
+        <tr class="negative"><td>Vibrant Glo. Cap</td><td>Finance</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 44.00</td><td>532</td><td>13.04.2025</td><td>₹ 41.36</td><td>-6.00%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Kamdhenu</td><td>Agriculture</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 26.00</td><td>888</td><td>13.04.2025</td><td>₹ 27.95</td><td>7.50%</td><td>Positive</td></tr>
+        <tr class="negative"><td>Likhitha Infra.</td><td>Construction</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 272.00</td><td>85</td><td>13.04.2025</td><td>₹ 233.34</td><td>-14.21%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Nucleus Soft.</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 808.00</td><td>28</td><td>13.04.2025</td><td>₹ 1,003.20</td><td>24.16%</td><td>Positive</td></tr>
+        <tr class="negative"><td>Keynote Finan.</td><td>Finance</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 438.00</td><td>53</td><td>13.04.2025</td><td>₹ 260.69</td><td>-40.48%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Volt.Transform.</td><td>Renewable Energy</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 6,952.00</td><td>3</td><td>13.04.2025</td><td>₹ 7,217.00</td><td>3.81%</td><td>Positive</td></tr>
+        <tr class="positive"><td>Elecon Engg.Co</td><td>Industrial</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 435.00</td><td>53</td><td>13.04.2025</td><td>₹ 569.10</td><td>30.83%</td><td>Positive</td></tr>
+        <tr class="positive"><td>Shreyans Inds.</td><td>Manufacturing</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 182.00</td><td>127</td><td>13.04.2025</td><td>₹ 228.71</td><td>25.66%</td><td>Positive</td></tr>
+        <tr class="negative"><td>Sharda Ispat</td><td>Metals</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 295.00</td><td>78</td><td>13.04.2025</td><td>₹ 206.55</td><td>-29.98%</td><td>Negative</td></tr>
+        <tr class="negative"><td>Prolife Indust.</td><td>Healthcare</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 215.00</td><td>108</td><td>13.04.2025</td><td>₹ 103.80</td><td>-51.72%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Vikram Thermo</td><td>Industrial</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 166.00</td><td>139</td><td>13.04.2025</td><td>₹ 166.45</td><td>0.27%</td><td>Positive</td></tr>
+        <tr class="negative"><td>Alldigi Tech</td><td>Technology</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 933.00</td><td>24</td><td>13.04.2025</td><td>₹ 889.15</td><td>-4.70%</td><td>Negative</td></tr>
+        <tr class="negative"><td>U P Hotels</td><td>Hospitality</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 1,600.00</td><td>14</td><td>13.04.2025</td><td>₹ 1,550.05</td><td>-3.12%</td><td>Negative</td></tr>
+        <tr class="negative"><td>SKP Securities</td><td>Finance</td><td>Small Cap</td><td>₹ 23,256.00</td><td>₹ 114.00</td><td>203</td><td>13.04.2025</td><td>₹ 109.05</td><td>-4.34%</td><td>Negative</td></tr>
+        <tr class="positive"><td>Natco Pharma</td><td>Pharmaceuticals</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 778.00</td><td>29</td><td>13.04.2025</td><td>₹ 824.90</td><td>6.03%</td><td>Positive</td></tr>
+        <tr class="positive"><td>Infibeam Avenues</td><td>Technology</td><td>Mid Cap</td><td>₹ 23,256.00</td><td>₹ 16.00</td><td>1,431</td><td>13.04.2025</td><td>₹ 18.92</td><td>18.25%</td><td>Positive</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-  <canvas id="marketCapChart" style="display:none;"></canvas>
-  <canvas id="sectorChart" style="display:none;"></canvas>
+  <div class="chart-container">
+    <canvas id="marketCapChart" style="display:none;"></canvas>
+    <canvas id="sectorChart" style="display:none;"></canvas>
+  </div>
 </main>
 
 <footer>
@@ -312,6 +476,21 @@ body.dark footer {
       toggleBtn.textContent = 'Light Mode';
     } else {
       toggleBtn.textContent = 'Dark Mode';
+    }
+  });
+
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  
+  mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+  
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+      navLinks.classList.remove('active');
     }
   });
 

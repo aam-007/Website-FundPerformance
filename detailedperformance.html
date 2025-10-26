@@ -48,9 +48,10 @@
     
     header { text-align: center; padding: 6vh 2vw; }
     header h1 { font-size: 3rem; font-weight: 500; }
-    header p { margin-top: 1rem; font-size: 1.2rem; color: #555; }
-    body.dark header p { color: #ccc; }
-    main { max-width: 1200px; margin: 0 auto; padding: 4vh 2vw; overflow-x: auto; max-height: 80vh; }
+    header h4 { margin-top: 1rem; font-size: 1.2rem; color: #555; font-weight: normal; }
+    header p { margin-top: 0.5rem; font-size: 1.2rem; color: #555; }
+    body.dark header p, body.dark header h4 { color: #ccc; }
+    main { max-width: 1200px; margin: 0 auto; padding: 4vh 2vw; }
     section { margin-bottom: 6vh; }
     section h2 { font-size: 2rem; margin-bottom: 1rem; font-weight: 400; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
     body.dark section h2 { border-bottom: 1px solid #555; }
@@ -74,6 +75,136 @@
         transition: all 0.3s ease;
     }
     body.dark .export-btn { border-color: #f9f9f9; color: #f9f9f9; }
+    
+    /* Mobile menu styles */
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: #111;
+        transition: all 0.3s ease;
+    }
+    body.dark .mobile-menu-btn {
+        color: #f9f9f9;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 1024px) {
+        .nav-links {
+            gap: 1rem;
+        }
+        .nav-links a {
+            font-size: 1rem;
+            padding: 0.5rem 0.75rem;
+        }
+        header h1 {
+            font-size: 2.5rem;
+        }
+        section h2 {
+            font-size: 1.75rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        /* Mobile navigation */
+        nav {
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .mobile-menu-btn {
+            display: block;
+        }
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            flex-direction: column;
+            background-color: #f9f9f9;
+            padding: 1rem 0;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+        body.dark .nav-links {
+            background-color: #111;
+            box-shadow: 0 5px 10px rgba(255, 255, 255, 0.05);
+        }
+        .nav-links.active {
+            display: flex;
+        }
+        .nav-links a {
+            display: block;
+            padding: 0.75rem 2vw;
+            border-radius: 0;
+            border-bottom: 1px solid #eee;
+        }
+        body.dark .nav-links a {
+            border-bottom: 1px solid #555;
+        }
+        .nav-links a:last-child {
+            border-bottom: none;
+        }
+        
+        /* Header adjustments */
+        header {
+            padding: 4vh 2vw;
+        }
+        header h1 {
+            font-size: 2rem;
+        }
+        header h4, header p {
+            font-size: 1.1rem;
+        }
+        
+        /* Main content adjustments */
+        main {
+            padding: 2vh 2vw;
+            overflow-x: auto;
+        }
+        section h2 {
+            font-size: 1.5rem;
+        }
+        
+        /* Table adjustments for mobile */
+        table {
+            min-width: 1000px; /* Keep table scrollable on mobile */
+        }
+        th, td {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.85rem;
+        }
+        
+        /* Footer adjustments */
+        footer {
+            padding: 2vh 2vw;
+            font-size: 0.8rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        header h1 {
+            font-size: 1.75rem;
+        }
+        header h4, header p {
+            font-size: 1rem;
+        }
+        section h2 {
+            font-size: 1.3rem;
+        }
+        .theme-toggle, .export-btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+        .theme-toggle {
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+    }
 </style>
 </head>
 <body>
@@ -82,16 +213,15 @@
 
 <!-- Navigation Bar - matching index.html -->
 <nav>
-  <div class="nav-links">
-
-    <div class="nav-links">
-      <a href="index.html">Fund Performance</a>
+    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    <div class="nav-links" id="navLinks">
+        <a href="index.html">Fund Performance</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="detailedperformance.html">Detailed Performance</a>
         <a href="investmentphilosophy.html">Investment Philosophy</a>
         <a href="returnscalc.html">Returns Calculator</a>
         <a href="aboutme.html">About Me</a>
-  </div>
+    </div>
 </nav>
 
 <header>
@@ -104,39 +234,41 @@
     <section>
         <h2>Performance Table</h2>
         <button class="export-btn" id="exportBtn">Export to Excel</button>
-        <table id="fundTable">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Fund Size (₹)</th>
-                    <th>NAV (₹)</th>
-                    <th>Profits (₹)</th>
-                    <th>NIFTY SC 250</th>
-                    <th>% Fund Return</th>
-                    <th>% Benchmark Return</th>
-                    <th>Alpha (FR - SR)</th>
-                    <th>Cumulative Fund Return</th>
-                    <th>Cumulative Benchmark Return</th>
-                    <th>Cumulative Alpha</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>13/04/2025</td><td>₹ 1,000,008.00</td><td>₹ 100.00</td><td>–</td><td>14,756.30</td><td>–</td><td>–</td><td>–</td><td>0.00%</td><td>0.00%</td><td>0.00%</td></tr>
-                <tr><td>21/05/2025</td><td>₹ 1,095,915.77</td><td>₹ 109.59</td><td>₹ 95,907.77</td><td>16,437.10</td><td>9.59%</td><td>11.40%</td><td>-1.81%</td><td>9.59%</td><td>11.40%</td><td>-1.81%</td></tr>
-                <tr><td>10/6/2025</td><td>₹ 1,132,009.06</td><td>₹ 113.20</td><td>₹ 36,093.29</td><td>17,544.30</td><td>3.29%</td><td>6.74%</td><td>-3.45%</td><td>13.20%</td><td>18.89%</td><td>-5.69%</td></tr>
-                <tr><td>14/08/2025</td><td>₹ 1,162,736.52</td><td>₹ 116.27</td><td>₹ 30,727.46</td><td>16,656.75</td><td>2.71%</td><td>-5.05%</td><td>7.76%</td><td>16.27%</td><td>12.89%</td><td>3.38%</td></tr>
-                <tr><td>26/08/2025</td><td>₹ 1,202,502.11</td><td>₹ 120.25</td><td>₹ 39,765.59</td><td>17,379.95</td><td>3.42%</td><td>4.33%</td><td>-0.91%</td><td>20.25%</td><td>17.79%</td><td>2.46%</td></tr>
-                <tr><td>1/9/2025</td><td>₹ 1,241,583.43</td><td>₹ 124.16</td><td>₹ 39,081.32</td><td>16,738.35</td><td>3.25%</td><td>-3.69%</td><td>6.94%</td><td>24.16%</td><td>13.43%</td><td>10.73%</td></tr>
-                <tr><td>2/9/2025</td><td>₹ 1,284,666.38</td><td>₹ 128.47</td><td>₹ 43,082.95</td><td>16,837.85</td><td>3.47%</td><td>0.60%</td><td>2.87%</td><td>28.47%</td><td>14.13%</td><td>14.34%</td></tr>
-                <tr><td>13/09/2025</td><td>₹ 1,341,322.17</td><td>₹ 134.13</td><td>₹ 56,655.79</td><td>17,144.85</td><td>4.41%</td><td>1.82%</td><td>2.59%</td><td>34.13%</td><td>16.18%</td><td>17.95%</td></tr>
-                <tr><td>17/09/2025</td><td>₹ 1,403,521.49</td><td>₹ 140.35</td><td>₹ 62,199.32</td><td>17,470.75</td><td>4.64%</td><td>1.90%</td><td>2.74%</td><td>40.35%</td><td>18.38%</td><td>21.97%</td></tr>
-                <tr><td>23/09/2025</td><td>₹ 1,452,925.45</td><td>₹ 145.29</td><td>₹ 49,403.96</td><td>17,256.25</td><td>3.52%</td><td>-1.23%</td><td>4.75%</td><td>45.29%</td><td>16.95%</td><td>28.34%</td></tr>
-                <tr><td>5/10/2025</td><td>₹ 1,491,129.39</td><td>₹ 149.11</td><td>₹ 38,203.94</td><td>17,030.15</td><td>2.63%</td><td>-1.31%</td><td>3.94%</td><td>49.11%</td><td>15.40%</td><td>33.71%</td></tr>
-                <tr><td>7/10/2025</td><td>₹ 1,535,274.48</td><td>₹ 153.53</td><td>₹ 44,145.09</td><td>17,045.10</td><td>2.96%</td><td>0.09%</td><td>2.87%</td><td>53.53%</td><td>15.50%</td><td>38.03%</td></tr>
-                <tr><td>22/10/2025</td><td>₹ 1,566,122.12</td><td>₹ 156.61</td><td>₹ 30,847.64</td><td>17,286.70</td><td>2.01%</td><td>1.42%</td><td>0.59%</td><td>56.61%</td><td>17.15%</td><td>39.46%</td></tr>
-                <tr><td>26/10/2025</td><td>₹ 1,596,932.22</td><td>₹ 159.69</td><td>₹ 30,810.10</td><td>17,219.00</td><td>1.97%</td><td>-0.39%</td><td>2.36%</td><td>59.69%</td><td>16.69%</td><td>43.00%</td></tr>
-            </tbody>
-        </table>
+        <div style="overflow-x: auto;">
+            <table id="fundTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Fund Size (₹)</th>
+                        <th>NAV (₹)</th>
+                        <th>Profits (₹)</th>
+                        <th>NIFTY SC 250</th>
+                        <th>% Fund Return</th>
+                        <th>% Benchmark Return</th>
+                        <th>Alpha (FR - SR)</th>
+                        <th>Cumulative Fund Return</th>
+                        <th>Cumulative Benchmark Return</th>
+                        <th>Cumulative Alpha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>13/04/2025</td><td>₹ 1,000,008.00</td><td>₹ 100.00</td><td>–</td><td>14,756.30</td><td>–</td><td>–</td><td>–</td><td>0.00%</td><td>0.00%</td><td>0.00%</td></tr>
+                    <tr><td>21/05/2025</td><td>₹ 1,095,915.77</td><td>₹ 109.59</td><td>₹ 95,907.77</td><td>16,437.10</td><td>9.59%</td><td>11.40%</td><td>-1.81%</td><td>9.59%</td><td>11.40%</td><td>-1.81%</td></tr>
+                    <tr><td>10/6/2025</td><td>₹ 1,132,009.06</td><td>₹ 113.20</td><td>₹ 36,093.29</td><td>17,544.30</td><td>3.29%</td><td>6.74%</td><td>-3.45%</td><td>13.20%</td><td>18.89%</td><td>-5.69%</td></tr>
+                    <tr><td>14/08/2025</td><td>₹ 1,162,736.52</td><td>₹ 116.27</td><td>₹ 30,727.46</td><td>16,656.75</td><td>2.71%</td><td>-5.05%</td><td>7.76%</td><td>16.27%</td><td>12.89%</td><td>3.38%</td></tr>
+                    <tr><td>26/08/2025</td><td>₹ 1,202,502.11</td><td>₹ 120.25</td><td>₹ 39,765.59</td><td>17,379.95</td><td>3.42%</td><td>4.33%</td><td>-0.91%</td><td>20.25%</td><td>17.79%</td><td>2.46%</td></tr>
+                    <tr><td>1/9/2025</td><td>₹ 1,241,583.43</td><td>₹ 124.16</td><td>₹ 39,081.32</td><td>16,738.35</td><td>3.25%</td><td>-3.69%</td><td>6.94%</td><td>24.16%</td><td>13.43%</td><td>10.73%</td></tr>
+                    <tr><td>2/9/2025</td><td>₹ 1,284,666.38</td><td>₹ 128.47</td><td>₹ 43,082.95</td><td>16,837.85</td><td>3.47%</td><td>0.60%</td><td>2.87%</td><td>28.47%</td><td>14.13%</td><td>14.34%</td></tr>
+                    <tr><td>13/09/2025</td><td>₹ 1,341,322.17</td><td>₹ 134.13</td><td>₹ 56,655.79</td><td>17,144.85</td><td>4.41%</td><td>1.82%</td><td>2.59%</td><td>34.13%</td><td>16.18%</td><td>17.95%</td></tr>
+                    <tr><td>17/09/2025</td><td>₹ 1,403,521.49</td><td>₹ 140.35</td><td>₹ 62,199.32</td><td>17,470.75</td><td>4.64%</td><td>1.90%</td><td>2.74%</td><td>40.35%</td><td>18.38%</td><td>21.97%</td></tr>
+                    <tr><td>23/09/2025</td><td>₹ 1,452,925.45</td><td>₹ 145.29</td><td>₹ 49,403.96</td><td>17,256.25</td><td>3.52%</td><td>-1.23%</td><td>4.75%</td><td>45.29%</td><td>16.95%</td><td>28.34%</td></tr>
+                    <tr><td>5/10/2025</td><td>₹ 1,491,129.39</td><td>₹ 149.11</td><td>₹ 38,203.94</td><td>17,030.15</td><td>2.63%</td><td>-1.31%</td><td>3.94%</td><td>49.11%</td><td>15.40%</td><td>33.71%</td></tr>
+                    <tr><td>7/10/2025</td><td>₹ 1,535,274.48</td><td>₹ 153.53</td><td>₹ 44,145.09</td><td>17,045.10</td><td>2.96%</td><td>0.09%</td><td>2.87%</td><td>53.53%</td><td>15.50%</td><td>38.03%</td></tr>
+                    <tr><td>22/10/2025</td><td>₹ 1,566,122.12</td><td>₹ 156.61</td><td>₹ 30,847.64</td><td>17,286.70</td><td>2.01%</td><td>1.42%</td><td>0.59%</td><td>56.61%</td><td>17.15%</td><td>39.46%</td></tr>
+                    <tr><td>26/10/2025</td><td>₹ 1,596,932.22</td><td>₹ 159.69</td><td>₹ 30,810.10</td><td>17,219.00</td><td>1.97%</td><td>-0.39%</td><td>2.36%</td><td>59.69%</td><td>16.69%</td><td>43.00%</td></tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 </main>
 
@@ -159,6 +291,21 @@
         const table = document.getElementById('fundTable');
         const wb = XLSX.utils.table_to_book(table, {sheet: "Fund Performance"});
         XLSX.writeFile(wb, "fund_performance.xlsx");
+    });
+    
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            navLinks.classList.remove('active');
+        }
     });
 </script>
 

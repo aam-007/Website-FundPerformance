@@ -199,6 +199,146 @@
         margin-top: 1rem;
         margin-bottom: 0.5rem;
     }
+
+    /* Mobile menu styles */
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: #111;
+        transition: all 0.3s ease;
+    }
+    body.dark .mobile-menu-btn {
+        color: #f9f9f9;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 1024px) {
+        .nav-links {
+            gap: 1rem;
+        }
+        .nav-links a {
+            font-size: 1rem;
+            padding: 0.5rem 0.75rem;
+        }
+        header h1 {
+            font-size: 2.5rem;
+        }
+        section h2 {
+            font-size: 1.75rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        /* Mobile navigation */
+        nav {
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .mobile-menu-btn {
+            display: block;
+        }
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            flex-direction: column;
+            background-color: #f9f9f9;
+            padding: 1rem 0;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+        body.dark .nav-links {
+            background-color: #111;
+            box-shadow: 0 5px 10px rgba(255, 255, 255, 0.05);
+        }
+        .nav-links.active {
+            display: flex;
+        }
+        .nav-links a {
+            display: block;
+            padding: 0.75rem 2vw;
+            border-radius: 0;
+            border-bottom: 1px solid #eee;
+        }
+        body.dark .nav-links a {
+            border-bottom: 1px solid #555;
+        }
+        .nav-links a:last-child {
+            border-bottom: none;
+        }
+        
+        /* Header adjustments */
+        header {
+            padding: 4vh 2vw;
+        }
+        header h1 {
+            font-size: 2rem;
+        }
+        header p {
+            font-size: 1.1rem;
+        }
+        .author-name {
+            font-size: 1.2rem;
+        }
+        
+        /* Main content adjustments */
+        main {
+            padding: 2vh 2vw;
+        }
+        section h2 {
+            font-size: 1.5rem;
+        }
+        
+        /* Influences grid adjustments */
+        .influences {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+        .influence-card {
+            padding: 0.75rem;
+        }
+        
+        /* Quote adjustments */
+        .quote {
+            padding: 0.75rem;
+            margin: 1rem 0;
+        }
+        
+        /* Footer adjustments */
+        footer {
+            padding: 2vh 2vw;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        header h1 {
+            font-size: 1.75rem;
+        }
+        header p {
+            font-size: 1rem;
+        }
+        .author-name {
+            font-size: 1.1rem;
+        }
+        section h2 {
+            font-size: 1.3rem;
+        }
+        .influences {
+            grid-template-columns: 1fr;
+        }
+        .theme-toggle {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+    }
 </style>
 </head>
 <body>
@@ -207,8 +347,9 @@
 
 <!-- Navigation Bar -->
 <nav>
-    <div class="nav-links">
-      <a href="index.html">Fund Performance</a>
+    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    <div class="nav-links" id="navLinks">
+        <a href="index.html">Fund Performance</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="detailedperformance.html">Detailed Performance</a>
         <a href="investmentphilosophy.html">Investment Philosophy</a>
@@ -322,6 +463,21 @@
     toggleBtn.addEventListener('click', () => {
         document.body.classList.toggle('dark');
         toggleBtn.textContent = document.body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+    });
+    
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            navLinks.classList.remove('active');
+        }
     });
 </script>
 
