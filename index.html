@@ -1,14 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Fund Performance</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fund Performance</title>
+<style>
+    /* Minimalist global styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #111;
+        line-height: 1.6;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark {
+        background-color: #111;
+        color: #f9f9f9;
+    }
+    header {
+        text-align: center;
+        padding: 6vh 2vw;
+    }
+    header h1 {
+        font-size: 3rem;
+        font-weight: 500;
+    }
+    header p {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        color: #555;
+    }
+    body.dark header p {
+        color: #ccc;
+    }
+    main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 4vh 2vw;
+    }
+    section {
+        margin-bottom: 6vh;
+    }
+    section h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 400;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.5rem;
+    }
+    body.dark section h2 {
+        border-bottom: 1px solid #555;
+    }
+    section p {
+        font-size: 1rem;
+        color: #444;
+    }
+    body.dark section p {
+        color: #ccc;
+    }
+    .chart-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-top: 1rem;
+    }
+    .chart-grid a {
+        display: block;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .chart-grid a img {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        display: block;
+    }
+    body.dark .chart-grid a img {
+        box-shadow: 0 2px 6px rgba(255,255,255,0.1);
+    }
+    .chart-grid a:hover img {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    body.dark .chart-grid a:hover img {
+        box-shadow: 0 6px 12px rgba(255,255,255,0.2);
+    }
+    footer {
+        text-align: center;
+        padding: 4vh 2vw;
+        font-size: 0.9rem;
+        color: #777;
+    }
+    body.dark footer {
+        color: #aaa;
+    }
+    a {
+        color: #111;
+        text-decoration: none;
+    }
+    body.dark a {
+        color: #f9f9f9;
+    }
+    /* Toggle button styles */
+    .theme-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: 1px solid #111;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+    body.dark .theme-toggle {
+        border-color: #f9f9f9;
+        color: #f9f9f9;
+    }
+</style>
 </head>
 <body>
-    <h1>Welcome to Fund Performance</h1>
+
+<button class="theme-toggle" id="themeToggle">Dark Mode</button>
+
+<header>
+    <h1>Fund Performance</h1>
+    <p>Tracking long-term returns with clarity and discipline</p>
+</header>
+
+<main>
+    <section>
+        <h2>Overview</h2>
+        <p>Dear Shareholder, welcome to the official fund performance dashboard. Here, you can explore historical returns, cumulative alpha, and key fund metrics.</p>
+    </section>
+
+    <section>
+        <h2>Key Metrics</h2>
+        <div class="chart-grid">
+            <a href="assets/charts/nav/26_10_2025.png" target="_blank">
+                <img src="assets/charts/nav/26_10_2025.png" alt="NAV Chart">
+            </a>
+            <a href="assets/charts/cum_alpha/26_10_2025.png" target="_blank">
+                <img src="assets/charts/cum_alpha/26_10_2025.png" alt="Cumulative Alpha Chart">
+            </a>
+            <a href="assets/charts/fund_size/26_10_2025.png" target="_blank">
+                <img src="assets/charts/fund_size/26_10_2025.png" alt="Fund Size Chart">
+            </a>
+            <a href="assets/charts/fund_vs_benchmark/26_10_2025.png" target="_blank">
+                <img src="assets/charts/fund_vs_benchmark/26_10_2025.png" alt="Fund vs Benchmark Chart">
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <h2>Latest Statistics</h2>
+        <p>Current NAV: <strong>₹159.69</strong></p>
+        <p>Fund Size: <strong>₹1,596,932.22</strong> </p>
+        <p>Cumulative Fund Return: <strong>59.69%</strong></p>
+        <p>Cumalative Fund Alpha: <strong>43.00%</strong></p>
+    </section>
+
+    <section>
+        <h2>About the Fund</h2>
+        <p>This fund follows a high-conviction, concentrated strategy focusing on undervalued businesses with strong fundamentals. All data is derived from historical performance and aims to provide clients with clarity and transparency.</p>
+    </section>
+</main>
+
+<footer>
+    &copy; 2025 Fund Performance. All rights reserved. Last Updated 26/10/2025 1422hrs
+</footer>
+
+<script>
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        if(document.body.classList.contains('dark')) {
+            toggleBtn.textContent = 'Light Mode';
+        } else {
+            toggleBtn.textContent = 'Dark Mode';
+        }
+    });
+</script>
 
 </body>
 </html>
