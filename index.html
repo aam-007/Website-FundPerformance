@@ -22,6 +22,34 @@
         background-color: #111;
         color: #f9f9f9;
     }
+    
+    /* Navigation styles */
+    nav {
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 2vw;
+        border-bottom: 1px solid #eee;
+    }
+    body.dark nav {
+        border-bottom: 1px solid #555;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+    .nav-links a:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    body.dark .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
     header {
         text-align: center;
         padding: 6vh 2vw;
@@ -130,6 +158,18 @@
 
 <button class="theme-toggle" id="themeToggle">Dark Mode</button>
 
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-links">
+        <a href="index.html">Fund Performance</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="detailedperformance.html">Detailed Performance</a>
+        <a href="investmentphilosophy.html">Investment Philosophy</a>
+        <a href="returnscalc.html">Returns Calculator</a>
+        <a href="aboutme.html">About Me</a>
+    </div>
+</nav>
+
 <header>
     <h1>Fund Performance</h1>
     <p>Tracking long-term returns with clarity and discipline</p>
@@ -138,7 +178,7 @@
 <main>
     <section>
         <h2>Overview</h2>
-        <p>Dear Shareholder, welcome to the official fund performance dashboard. Here, you can explore historical returns, cumulative alpha, and key fund metrics.</p>
+        <p>Welcome to the official fund performance dashboard. This platform has been designed to give you complete transparency and insight into the fund's journey over time. Here, you can explore detailed historical returns, track cumulative alpha, and analyze key fund metrics that reflect the performance, risk profile, and growth of your investment.</p>
     </section>
 
     <section>
@@ -161,6 +201,7 @@
 
     <section>
         <h2>Latest Statistics</h2>
+        <h4> As on: 26th October, 2025</h4>
         <p>Current NAV: <strong>₹159.69</strong></p>
         <p>Fund Size: <strong>₹1,596,932.22</strong> </p>
         <p>Cumulative Fund Return: <strong>59.69%</strong></p>
@@ -174,7 +215,7 @@
 </main>
 
 <footer>
-    &copy; 2025 Fund Performance. All rights reserved. Last Updated 26/10/2025 1422hrs
+    &copy; 2025 Fund Performance. All rights reserved. Last Updated 26/10/2025 1730hrs. Aditya Mishra
 </footer>
 
 <script>

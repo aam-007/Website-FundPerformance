@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fund Returns Calculator</title>
+<style>
+    /* Minimalist global styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #111;
+        line-height: 1.6;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark {
+        background-color: #111;
+        color: #f9f9f9;
+    }
+    
+    /* Navigation styles */
+    nav {
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 2vw;
+        border-bottom: 1px solid #eee;
+    }
+    body.dark nav {
+        border-bottom: 1px solid #555;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        color: #111;
+        text-decoration: none;
+    }
+    body.dark .nav-links a {
+        color: #f9f9f9;
+    }
+    .nav-links a:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    body.dark .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    header {
+        text-align: center;
+        padding: 6vh 2vw;
+    }
+    header h1 {
+        font-size: 3rem;
+        font-weight: 500;
+    }
+    header p {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        color: #555;
+    }
+    body.dark header p {
+        color: #ccc;
+    }
+    main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 4vh 2vw;
+    }
+    section {
+        margin-bottom: 6vh;
+    }
+    section h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 400;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.5rem;
+    }
+    body.dark section h2 {
+        border-bottom: 1px solid #555;
+    }
+    section p {
+        font-size: 1rem;
+        color: #444;
+    }
+    body.dark section p {
+        color: #ccc;
+    }
+    footer {
+        text-align: center;
+        padding: 4vh 2vw;
+        font-size: 0.9rem;
+        color: #777;
+    }
+    body.dark footer {
+        color: #aaa;
+    }
+    a {
+        color: #111;
+        text-decoration: none;
+    }
+    body.dark a {
+        color: #f9f9f9;
+    }
+    /* Toggle button styles */
+    .theme-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: 1px solid #111;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+    body.dark .theme-toggle {
+        border-color: #f9f9f9;
+        color: #f9f9f9;
+    }
+    /* Calculator styles */
+    .calc-form {
+        margin: 1.5rem 0;
+    }
+    .calc-form label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    .calc-form input {
+        padding: 0.75rem;
+        width: 200px;
+        margin-right: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+    body.dark .calc-form input {
+        background: #222;
+        border-color: #555;
+        color: #f9f9f9;
+    }
+    .calc-form button {
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        border: 1px solid #111;
+        background: none;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    body.dark .calc-form button {
+        border-color: #f9f9f9;
+        color: #f9f9f9;
+    }
+    .calc-form button:hover {
+        background: #111;
+        color: white;
+    }
+    body.dark .calc-form button:hover {
+        background: #f9f9f9;
+        color: #111;
+    }
+    #calcResult {
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+        border-radius: 6px;
+        background: #f0f0f0;
+    }
+    body.dark #calcResult {
+        background: #222;
+    }
+    .comparison-box {
+        margin-top: 1rem;
+        padding: 1.5rem;
+        border-radius: 4px;
+        background: #e8f5e8;
+    }
+    body.dark .comparison-box {
+        background: #1e3a1e;
+    }
+    .profit-highlight {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2e7d32;
+        margin: 1rem 0;
+        padding: 0.75rem;
+        border-radius: 4px;
+        background: #c8e6c9;
+        text-align: center;
+    }
+    body.dark .profit-highlight {
+        color: #a5d6a7;
+        background: #1b5e20;
+    }
+    .metric-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .metric-card {
+        padding: 1rem;
+        border-radius: 4px;
+        background: white;
+        border: 1px solid #eee;
+    }
+    body.dark .metric-card {
+        background: #1a1a1a;
+        border-color: #333;
+    }
+    .metric-card h4 {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    .metric-value {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    .fund-metric {
+        color: #2e7d32;
+    }
+    .index-metric {
+        color: #1565c0;
+    }
+    body.dark .fund-metric {
+        color: #a5d6a7;
+    }
+    body.dark .index-metric {
+        color: #90caf9;
+    }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle">Dark Mode</button>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-links">
+      <a href="index.html">Fund Performance</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="detailedperformance.html">Detailed Performance</a>
+        <a href="investmentphilosophy.html">Investment Philosophy</a>
+        <a href="returnscalc.html">Returns Calculator</a>
+        <a href="aboutme.html">About Me</a>
+    </div>
+</nav>
+
+<header>
+    <h1>One-Time Investment Calculator</h1>
+    <p>Estimate potential growth of your investment in the fund since inception</p>
+</header>
+
+<main>
+    <section>
+        <h2>About the Calculator</h2>
+        <p>This calculator allows you to estimate potential returns based on the fund's performance since inception on <strong>13/04/2025</strong>. We are using the latest cumulative return of <strong>59.69%</strong> as of 26/10/2025. For comparison, the NIFTY 250 Smallcap Index has grown <strong>16.69%</strong> over the same period.</p>
+    </section>
+
+    <section>
+        <h2>Calculate Your One-Time Investment</h2>
+        <div class="calc-form">
+            <label for="oneTimeAmount">Investment Amount (₹):</label>
+            <input type="number" id="oneTimeAmount" value="5000" min="1">
+            <button id="calculateOneTime">Calculate Returns</button>
+        </div>
+        <div id="calcResult"></div>
+    </section>
+</main>
+
+<footer>
+    &copy; 2025 Fund Performance. All rights reserved. Last Updated 26/10/2025 1730hrs. Aditya Mishra
+</footer>
+
+<script>
+    // Dark mode toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        toggleBtn.textContent = document.body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+    });
+
+    // One-Time investment calculation
+    const fundReturn = 59.69 / 100; // Fund cumulative return
+    const niftyReturn = 16.69 / 100; // Nifty 250 Smallcap Index cumulative return
+
+    document.getElementById('calculateOneTime').addEventListener('click', () => {
+        const amount = parseFloat(document.getElementById('oneTimeAmount').value);
+        
+        if (isNaN(amount) || amount <= 0) {
+            alert('Please enter a valid investment amount');
+            return;
+        }
+        
+        const fundTotal = amount * (1 + fundReturn);
+        const niftyTotal = amount * (1 + niftyReturn);
+        const fundProfit = fundTotal - amount;
+        const niftyProfit = niftyTotal - amount;
+        const alpha = fundTotal - niftyTotal;
+        
+        document.getElementById('calcResult').innerHTML = `
+            <h3>Your Investment Growth</h3>
+            <p>Based on our fund's performance since inception, here's how your investment would have grown:</p>
+            
+            <div class="profit-highlight">
+                You would have earned a profit of <strong>₹${fundProfit.toLocaleString('en-IN', {maximumFractionDigits: 0})}</strong> from your initial investment of ₹${amount.toLocaleString('en-IN')}
+            </div>
+            
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <h4>Our Fund Performance</h4>
+                    <div class="metric-value fund-metric">+59.69%</div>
+                    <p><strong>Initial:</strong> ₹${amount.toLocaleString('en-IN')}</p>
+                    <p><strong>Final Value:</strong> ₹${fundTotal.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
+                    <p><strong>Profit:</strong> ₹${fundProfit.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>NIFTY 250 Smallcap Index</h4>
+                    <div class="metric-value index-metric">+16.69%</div>
+                    <p><strong>Initial:</strong> ₹${amount.toLocaleString('en-IN')}</p>
+                    <p><strong>Final Value:</strong> ₹${niftyTotal.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
+                    <p><strong>Profit:</strong> ₹${niftyProfit.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
+                </div>
+            </div>
+            
+            <div class="comparison-box">
+                <h4>Performance Comparison</h4>
+                <p>By investing in our fund instead of the NIFTY 250 Smallcap Index, you would have earned an <strong>additional ₹${alpha.toLocaleString('en-IN', {maximumFractionDigits: 0})}</strong> in returns.</p>
+                <p>This represents a significant <strong>${((fundReturn/niftyReturn - 1)*100).toFixed(0)}% higher return</strong> compared to the benchmark index.</p>
+            </div>
+        `;
+    });
+
+    // Calculate on page load with default value
+    document.getElementById('calculateOneTime').click();
+</script>
+
+</body>
+</html>

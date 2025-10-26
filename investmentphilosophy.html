@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Philosophy</title>
+<style>
+    /* Minimalist global styles */
+    * { 
+        box-sizing: border-box; 
+        margin: 0; 
+        padding: 0; 
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f9f9f9; 
+        color: #111; 
+        line-height: 1.6;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark { 
+        background-color: #111; 
+        color: #f9f9f9; 
+    }
+    
+    /* Navigation styles */
+    nav {
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 2vw;
+        border-bottom: 1px solid #eee;
+    }
+    body.dark nav {
+        border-bottom: 1px solid #555;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        color: #111;
+        text-decoration: none;
+    }
+    body.dark .nav-links a {
+        color: #f9f9f9;
+    }
+    .nav-links a:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    body.dark .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    header { 
+        text-align: center; 
+        padding: 6vh 2vw; 
+    }
+    header h1 { 
+        font-size: 3rem; 
+        font-weight: 500; 
+        margin-bottom: 1rem;
+    }
+    header p { 
+        font-size: 1.2rem; 
+        color: #555; 
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    body.dark header p { 
+        color: #ccc; 
+    }
+    
+    main { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        padding: 4vh 2vw; 
+    }
+    
+    section { 
+        margin-bottom: 6vh; 
+    }
+    
+    section h2 { 
+        font-size: 2rem; 
+        margin-bottom: 1.5rem; 
+        font-weight: 400; 
+        border-bottom: 1px solid #eee; 
+        padding-bottom: 0.5rem; 
+    }
+    body.dark section h2 { 
+        border-bottom: 1px solid #555; 
+    }
+    
+    .tenet {
+        margin-bottom: 2.5rem;
+    }
+    
+    .tenet h3 {
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+        color: #333;
+    }
+    
+    body.dark .tenet h3 {
+        color: #e0e0e0;
+    }
+    
+    .tenet p {
+        margin-bottom: 1rem;
+        color: #444;
+    }
+    
+    body.dark .tenet p {
+        color: #ccc;
+    }
+    
+    footer { 
+        text-align: center; 
+        padding: 4vh 2vw; 
+        font-size: 0.9rem; 
+        color: #777; 
+    }
+    body.dark footer { 
+        color: #aaa; 
+    }
+    
+    .theme-toggle {
+        position: fixed; 
+        top: 1rem; 
+        right: 1rem; 
+        background: none; 
+        border: 1px solid #111;
+        border-radius: 6px; 
+        padding: 0.5rem 1rem; 
+        cursor: pointer; 
+        font-size: 0.9rem; 
+        transition: all 0.3s ease; 
+        z-index: 1000;
+    }
+    body.dark .theme-toggle { 
+        border-color: #f9f9f9; 
+        color: #f9f9f9; 
+    }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle">Dark Mode</button>
+
+<!-- Navigation Bar -->
+<nav>
+      <div class="nav-links">
+        <a href="index.html">Fund Performance</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="detailedperformance.html">Detailed Performance</a>
+        <a href="investmentphilosophy.html">Investment Philosophy</a>
+        <a href="returnscalc.html">Returns Calculator</a>
+        <a href="aboutme.html">About Me</a>
+  </div>
+</nav>
+
+<header>
+    <h1>My Investment Philosophy</h1>
+    <p>At the core of my approach lies a simple but disciplined principle: stocks are derivatives of businesses.</p>
+</header>
+
+<main>
+    <section>
+        <p>Every investment begins with the business itself, its fundamentals, quality, and long-term prospects, rather than short-term market sentiment or speculative trends. I focus on owning pieces of strong, well-managed companies at attractive valuations, understanding that the stock price ultimately reflects the performance of the underlying business.</p>
+    </section>
+
+    <section>
+        <h2>Key Tenets of My Approach</h2>
+        
+        <div class="tenet">
+            <h3>Concentration over Diversification</h3>
+            <p>I focus on a select set of high-conviction investments rather than spreading capital across numerous positions. By concentrating on the businesses I understand best, I aim to maximize compounding potential while maintaining deep engagement with the companies I own.</p>
+        </div>
+        
+        <div class="tenet">
+            <h3>Quality First</h3>
+            <p>I analyze businesses holistically, emphasizing long-term profitability, robust cash flows, and strong returns. My framework includes quantitative thresholds like high return on capital employed (ROCE > 30%), positive free cash flow, strong balance sheets (D/E < 1), and consistent profitability.</p>
+            <p>Equally important is qualitative assessment, evaluating management integrity, strategic vision, and competitive positioning.</p>
+        </div>
+        
+        <div class="tenet">
+            <h3>Value with Growth Awareness</h3>
+            <p>While quality is my priority, I invest opportunistically when valuation provides an attractive entry point. I look for great businesses priced below intrinsic value, often in situations overlooked or misunderstood by the broader market, guided by metrics like P/E ratios, PEG ratios, and historical performance patterns.</p>
+        </div>
+        
+        <div class="tenet">
+            <h3>Long-Term Orientation</h3>
+            <p>Patience is central to my philosophy. I invest with a multi-year horizon, allowing compounding to work its magic. Market volatility is seen as opportunity rather than risk, because true risk is the permanent loss of capital, not temporary price swings.</p>
+        </div>
+        
+        <div class="tenet">
+            <h3>Data-Driven Independence</h3>
+            <p>All my analysis is grounded in primary sources, primarily annual reports and company filings. I avoid brokerage notes and market hype, preferring to study the last ten years of reports from industry leaders to understand sector dynamics, historical trends, and management consistency.</p>
+        </div>
+        
+        <div class="tenet">
+            <h3>Resilient and Contrarian Thinking</h3>
+            <p>I embrace contrarian opportunities when the market misprices a fundamentally sound company. Low-beta, high-alpha positions reflect my preference for resilient businesses that perform under stress while offering asymmetric upside.</p>
+        </div>
+        
+        <div class="tenet">
+            <h3>Simplicity and Discipline</h3>
+            <p>I follow the mantra: "not smart, just not stupid." Complexity and speculation are avoided. My process is disciplined, formulaic yet flexible, relying on careful observation of business patterns and consistent quantitative checks.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>In Practice</h2>
+        <p>By integrating these principles, my fund aims to deliver high alpha with low market correlation, demonstrating that disciplined, concentrated, and business-focused investing can outperform benchmarks while managing risk.</p>
+        <p>The goal is long-term wealth creation for shareholders, built on patience, analytical rigor, and the conviction that understanding the business is the only true edge in investing.</p>
+    </section>
+</main>
+
+<footer>
+    &copy; 2025 Fund Performance. All rights reserved. Last Updated 26/10/2025 1730hrs. Aditya Mishra
+</footer>
+
+<script>
+    // Dark/light toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        toggleBtn.textContent = document.body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+    });
+</script>
+
+</body>
+</html>

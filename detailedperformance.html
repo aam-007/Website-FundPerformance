@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detailed Fund Performance</title>
+<style>
+    /* Minimalist global styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f9f9f9; color: #111; line-height: 1.6;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark { background-color: #111; color: #f9f9f9; }
+    
+    /* Navigation styles - matching index.html */
+    nav {
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 2vw;
+        border-bottom: 1px solid #eee;
+    }
+    body.dark nav {
+        border-bottom: 1px solid #555;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        color: #111;
+        text-decoration: none;
+    }
+    body.dark .nav-links a {
+        color: #f9f9f9;
+    }
+    .nav-links a:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    body.dark .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    header { text-align: center; padding: 6vh 2vw; }
+    header h1 { font-size: 3rem; font-weight: 500; }
+    header p { margin-top: 1rem; font-size: 1.2rem; color: #555; }
+    body.dark header p { color: #ccc; }
+    main { max-width: 1200px; margin: 0 auto; padding: 4vh 2vw; overflow-x: auto; max-height: 80vh; }
+    section { margin-bottom: 6vh; }
+    section h2 { font-size: 2rem; margin-bottom: 1rem; font-weight: 400; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
+    body.dark section h2 { border-bottom: 1px solid #555; }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+    th { background-color: #f1f1f1; font-weight: 500; position: sticky; top: 0; z-index: 2; }
+    body.dark th { background-color: #222; }
+    body.dark td, body.dark th { border-color: #555; }
+    tbody tr:hover { background-color: #f0f0f0; }
+    body.dark tbody tr:hover { background-color: #222; }
+    footer { text-align: center; padding: 4vh 2vw; font-size: 0.9rem; color: #777; }
+    body.dark footer { color: #aaa; }
+    .theme-toggle {
+        position: fixed; top: 1rem; right: 1rem; background: none; border: 1px solid #111;
+        border-radius: 6px; padding: 0.5rem 1rem; cursor: pointer; font-size: 0.9rem; transition: all 0.3s ease; z-index: 1000;
+    }
+    body.dark .theme-toggle { border-color: #f9f9f9; color: #f9f9f9; }
+    .export-btn {
+        display: inline-block; margin: 1rem 0; padding: 0.5rem 1rem;
+        border: 1px solid #111; border-radius: 6px; background: none; cursor: pointer; font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+    body.dark .export-btn { border-color: #f9f9f9; color: #f9f9f9; }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle">Dark Mode</button>
+
+<!-- Navigation Bar - matching index.html -->
+<nav>
+  <div class="nav-links">
+
+    <div class="nav-links">
+      <a href="index.html">Fund Performance</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="detailedperformance.html">Detailed Performance</a>
+        <a href="investmentphilosophy.html">Investment Philosophy</a>
+        <a href="returnscalc.html">Returns Calculator</a>
+        <a href="aboutme.html">About Me</a>
+  </div>
+</nav>
+
+<header>
+    <h1>Detailed Fund Performance</h1>
+    <h4>As on: 26th October, 2025</h4>
+    <p>Historical returns, profits, and alpha for our valued investors</p>
+</header>
+
+<main>
+    <section>
+        <h2>Performance Table</h2>
+        <button class="export-btn" id="exportBtn">Export to Excel</button>
+        <table id="fundTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Fund Size (₹)</th>
+                    <th>NAV (₹)</th>
+                    <th>Profits (₹)</th>
+                    <th>NIFTY SC 250</th>
+                    <th>% Fund Return</th>
+                    <th>% Benchmark Return</th>
+                    <th>Alpha (FR - SR)</th>
+                    <th>Cumulative Fund Return</th>
+                    <th>Cumulative Benchmark Return</th>
+                    <th>Cumulative Alpha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>13/04/2025</td><td>₹ 1,000,008.00</td><td>₹ 100.00</td><td>–</td><td>14,756.30</td><td>–</td><td>–</td><td>–</td><td>0.00%</td><td>0.00%</td><td>0.00%</td></tr>
+                <tr><td>21/05/2025</td><td>₹ 1,095,915.77</td><td>₹ 109.59</td><td>₹ 95,907.77</td><td>16,437.10</td><td>9.59%</td><td>11.40%</td><td>-1.81%</td><td>9.59%</td><td>11.40%</td><td>-1.81%</td></tr>
+                <tr><td>10/6/2025</td><td>₹ 1,132,009.06</td><td>₹ 113.20</td><td>₹ 36,093.29</td><td>17,544.30</td><td>3.29%</td><td>6.74%</td><td>-3.45%</td><td>13.20%</td><td>18.89%</td><td>-5.69%</td></tr>
+                <tr><td>14/08/2025</td><td>₹ 1,162,736.52</td><td>₹ 116.27</td><td>₹ 30,727.46</td><td>16,656.75</td><td>2.71%</td><td>-5.05%</td><td>7.76%</td><td>16.27%</td><td>12.89%</td><td>3.38%</td></tr>
+                <tr><td>26/08/2025</td><td>₹ 1,202,502.11</td><td>₹ 120.25</td><td>₹ 39,765.59</td><td>17,379.95</td><td>3.42%</td><td>4.33%</td><td>-0.91%</td><td>20.25%</td><td>17.79%</td><td>2.46%</td></tr>
+                <tr><td>1/9/2025</td><td>₹ 1,241,583.43</td><td>₹ 124.16</td><td>₹ 39,081.32</td><td>16,738.35</td><td>3.25%</td><td>-3.69%</td><td>6.94%</td><td>24.16%</td><td>13.43%</td><td>10.73%</td></tr>
+                <tr><td>2/9/2025</td><td>₹ 1,284,666.38</td><td>₹ 128.47</td><td>₹ 43,082.95</td><td>16,837.85</td><td>3.47%</td><td>0.60%</td><td>2.87%</td><td>28.47%</td><td>14.13%</td><td>14.34%</td></tr>
+                <tr><td>13/09/2025</td><td>₹ 1,341,322.17</td><td>₹ 134.13</td><td>₹ 56,655.79</td><td>17,144.85</td><td>4.41%</td><td>1.82%</td><td>2.59%</td><td>34.13%</td><td>16.18%</td><td>17.95%</td></tr>
+                <tr><td>17/09/2025</td><td>₹ 1,403,521.49</td><td>₹ 140.35</td><td>₹ 62,199.32</td><td>17,470.75</td><td>4.64%</td><td>1.90%</td><td>2.74%</td><td>40.35%</td><td>18.38%</td><td>21.97%</td></tr>
+                <tr><td>23/09/2025</td><td>₹ 1,452,925.45</td><td>₹ 145.29</td><td>₹ 49,403.96</td><td>17,256.25</td><td>3.52%</td><td>-1.23%</td><td>4.75%</td><td>45.29%</td><td>16.95%</td><td>28.34%</td></tr>
+                <tr><td>5/10/2025</td><td>₹ 1,491,129.39</td><td>₹ 149.11</td><td>₹ 38,203.94</td><td>17,030.15</td><td>2.63%</td><td>-1.31%</td><td>3.94%</td><td>49.11%</td><td>15.40%</td><td>33.71%</td></tr>
+                <tr><td>7/10/2025</td><td>₹ 1,535,274.48</td><td>₹ 153.53</td><td>₹ 44,145.09</td><td>17,045.10</td><td>2.96%</td><td>0.09%</td><td>2.87%</td><td>53.53%</td><td>15.50%</td><td>38.03%</td></tr>
+                <tr><td>22/10/2025</td><td>₹ 1,566,122.12</td><td>₹ 156.61</td><td>₹ 30,847.64</td><td>17,286.70</td><td>2.01%</td><td>1.42%</td><td>0.59%</td><td>56.61%</td><td>17.15%</td><td>39.46%</td></tr>
+                <tr><td>26/10/2025</td><td>₹ 1,596,932.22</td><td>₹ 159.69</td><td>₹ 30,810.10</td><td>17,219.00</td><td>1.97%</td><td>-0.39%</td><td>2.36%</td><td>59.69%</td><td>16.69%</td><td>43.00%</td></tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer>
+    &copy; 2025 Fund Performance. All rights reserved. Last Updated 26/10/2025 1730hrs. Aditya Mishra
+</footer>
+
+<!-- SheetJS CDN -->
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<script>
+    // Dark/light toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        toggleBtn.textContent = document.body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+    });
+
+    // Export table to XLSX
+    document.getElementById('exportBtn').addEventListener('click', () => {
+        const table = document.getElementById('fundTable');
+        const wb = XLSX.utils.table_to_book(table, {sheet: "Fund Performance"});
+        XLSX.writeFile(wb, "fund_performance.xlsx");
+    });
+</script>
+
+</body>
+</html>

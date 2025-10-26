@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me</title>
+<style>
+    /* Minimalist global styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #111;
+        line-height: 1.6;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark {
+        background-color: #111;
+        color: #f9f9f9;
+    }
+    
+    /* Navigation styles */
+    nav {
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 2vw;
+        border-bottom: 1px solid #eee;
+    }
+    body.dark nav {
+        border-bottom: 1px solid #555;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        color: #111;
+        text-decoration: none;
+    }
+    body.dark .nav-links a {
+        color: #f9f9f9;
+    }
+    .nav-links a:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    body.dark .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    header {
+        text-align: center;
+        padding: 6vh 2vw;
+    }
+    header h1 {
+        font-size: 3rem;
+        font-weight: 500;
+    }
+    header p {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        color: #555;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    body.dark header p {
+        color: #ccc;
+    }
+    main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 4vh 2vw;
+    }
+    section {
+        margin-bottom: 4vh;
+    }
+    section h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 400;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.5rem;
+    }
+    body.dark section h2 {
+        border-bottom: 1px solid #555;
+    }
+    section p {
+        font-size: 1rem;
+        color: #444;
+        margin-bottom: 1.5rem;
+    }
+    body.dark section p {
+        color: #ccc;
+    }
+    footer {
+        text-align: center;
+        padding: 4vh 2vw;
+        font-size: 0.9rem;
+        color: #777;
+    }
+    body.dark footer {
+        color: #aaa;
+    }
+    a {
+        color: #111;
+        text-decoration: none;
+    }
+    body.dark a {
+        color: #f9f9f9;
+    }
+    /* Toggle button styles */
+    .theme-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: 1px solid #111;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+    body.dark .theme-toggle {
+        border-color: #f9f9f9;
+        color: #f9f9f9;
+    }
+    /* Content styling */
+    .content-section {
+        margin-bottom: 3rem;
+    }
+    .influences {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .influence-card {
+        padding: 1rem;
+        border-radius: 4px;
+        background: #f0f0f0;
+    }
+    body.dark .influence-card {
+        background: #222;
+    }
+    .influence-card h4 {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    .quote {
+        font-style: italic;
+        padding: 1rem;
+        border-left: 3px solid #111;
+        margin: 1.5rem 0;
+        background: #f5f5f5;
+    }
+    body.dark .quote {
+        border-left-color: #f9f9f9;
+        background: #1a1a1a;
+    }
+    .philosophy-highlight {
+        font-weight: 500;
+        color: #333;
+        margin: 1.5rem 0;
+    }
+    body.dark .philosophy-highlight {
+        color: #e0e0e0;
+    }
+    .linkedin-link {
+        display: inline-block;
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid #0077b5;
+        border-radius: 4px;
+        color: #0077b5;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    body.dark .linkedin-link {
+        border-color: #0077b5;
+        color: #0077b5;
+    }
+    .linkedin-link:hover {
+        background: #0077b5;
+        color: white;
+    }
+    .author-name {
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle">Dark Mode</button>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-links">
+      <a href="index.html">Fund Performance</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="detailedperformance.html">Detailed Performance</a>
+        <a href="investmentphilosophy.html">Investment Philosophy</a>
+        <a href="returnscalc.html">Returns Calculator</a>
+        <a href="aboutme.html">About Me</a>
+    </div>
+</nav>
+
+<header>
+    <h1>About Me</h1>
+    <p>My journey in investing, philosophy, and approach to capital markets</p>
+    <div class="author-name">I am Aditya Mishra</div>
+    <a href="https://www.linkedin.com/in/adityamishra062007/" class="linkedin-link" target="_blank">
+        Connect on LinkedIn
+    </a>
+</header>
+
+<main>
+    <section class="content-section">
+        <p>I am an 18 year old student, pursing a dual degree course (MBA TECH) in Data Science, from NMIMS Mumbai. I have been passionate about capital markets and investing since I was twelve years old. At that age, I began learning how businesses work, how markets reflect value, and how disciplined investing can create long-term wealth. I started by managing a paper fund, simulating investments, and tracking performance. This early experience taught me the importance of patience, critical thinking, and understanding the businesses behind the stocks.</p>
+    </section>
+
+    <section class="content-section">
+        <h2>Learning & Influences</h2>
+        <p>Over the years, I have read extensively to build a strong foundation in investing, learning the following from the titans of the industry:</p>
+        
+        <div class="influences">
+            <div class="influence-card">
+                <h4>Warren Buffett</h4>
+                <p>Focusing on quality businesses and thinking like an owner</p>
+            </div>
+            <div class="influence-card">
+                <h4>Peter Lynch</h4>
+                <p>Combining curiosity and pattern recognition to find opportunities</p>
+            </div>
+            <div class="influence-card">
+                <h4>Benjamin Graham</h4>
+                <p>Value investing principles and margin of safety</p>
+            </div>
+            <div class="influence-card">
+                <h4>Philip Fisher</h4>
+                <p>Understanding management quality and long-term growth</p>
+            </div>
+            <div class="influence-card">
+                <h4>Joel Greenblatt</h4>
+                <p>Disciplined, formula-based approaches to find mispriced opportunities</p>
+            </div>
+            <div class="influence-card">
+                <h4>Seth Klarman</h4>
+                <p>Risk management and capital preservation</p>
+            </div>
+            <div class="influence-card">
+                <h4>Howard Marks</h4>
+                <p>Thinking in cycles and psychological aspects of markets</p>
+            </div>
+            <div class="influence-card">
+                <h4>George Soros</h4>
+                <p>Reflexivity and human behavior driving market outcomes</p>
+            </div>
+            <div class="influence-card">
+                <h4>Bill Ackman</h4>
+                <p>High-conviction, concentrated investments</p>
+            </div>
+            <div class="influence-card">
+                <h4>Ray Dalio</h4>
+                <p>Risk parity, macroeconomic cycles, and thoughtful diversification</p>
+            </div>
+            <div class="influence-card">
+                <h4>Jamie Dimon</h4>
+                <p>Risk management and strategic leadership</p>
+            </div>
+            <div class="influence-card">
+                <h4>John Bogle</h4>
+                <p>Keeping things simple and cost-effective investing</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <h2>Investment Approach</h2>
+        <p>I combine the lessons from all these thinkers into a single guiding principle.</p>
+
+        <div class="quote">
+            Buy good businesses, at a great price, which have the potential to be great businesses.
+        </div>
+        
+        <div class="philosophy-highlight">
+            I treat stocks as financial derivatives of the businesses they represent.
+        </div>
+        
+        <p>Every investment begins with the business itself. I analyze fundamentals, quality, and long-term prospects rather than reacting to short-term market trends. I focus on owning strong, well-managed companies at attractive valuations and prefer a concentrated portfolio where I have high conviction.</p>
+    </section>
+
+    <section class="content-section">
+        <h2>Daily Practice</h2>
+        <p>I spend significant time reading annual reports, understanding sector dynamics, and studying business strategies. I avoid speculative moves and instead look for opportunities where the market undervalues quality.</p>
+        
+            Investing is not just a profession for me; it is a disciplined practice of observation, reflection, and understanding human behavior.
+        
+        <p>My goal is to grow capital responsibly while staying true to the principles I have learned over more than a decade of study and practice.</p>
+    </section>
+</main>
+
+<footer>
+    &copy; 2025 Fund Performance. All rights reserved. Last Updated 26/10/2025 1730hrs. Aditya Mishra
+</footer>
+
+<script>
+    // Dark mode toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        toggleBtn.textContent = document.body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+    });
+</script>
+
+</body>
+</html>
