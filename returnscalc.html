@@ -415,7 +415,7 @@
 <main>
     <section>
         <h2>About the Calculator</h2>
-        <p>This calculator allows you to estimate potential returns based on the fund's performance since inception on <strong>13/04/2025</strong>. We are using the latest cumulative return of <strong>59.69%</strong> as of 26/10/2025. For comparison, the NIFTY 250 Smallcap Index has grown <strong>16.69%</strong> over the same period.</p>
+        <p>This calculator allows you to estimate potential returns based on the fund's performance since inception on <strong>13/04/2025</strong>. We are using the latest cumulative return of <strong>62.51%</strong> as of 28/10/2025. For comparison, the NIFTY 250 Smallcap Index has grown <strong>17.55%</strong> over the same period.</p>
     </section>
 
     <section>
@@ -430,7 +430,7 @@
 </main>
 
 <footer>
-    &copy; 2025 Fund Performance. All rights reserved. Last Updated 26/10/2025 1730hrs. Aditya Mishra
+    &copy; 2025 Fund Performance. All rights reserved. Last Updated 28/10/2025 2230hrs. Aditya Mishra
 </footer>
 
 <script>
@@ -457,8 +457,8 @@
     });
 
     // One-Time investment calculation
-    const fundReturn = 59.69 / 100; // Fund cumulative return
-    const niftyReturn = 16.69 / 100; // Nifty 250 Smallcap Index cumulative return
+    const fundReturn = 62.51 / 100; // Fund cumulative return
+    const niftyReturn = 17.55 / 100; // Nifty 250 Smallcap Index cumulative return
 
     document.getElementById('calculateOneTime').addEventListener('click', () => {
         const amount = parseFloat(document.getElementById('oneTimeAmount').value);
@@ -485,7 +485,7 @@
             <div class="metric-grid">
                 <div class="metric-card">
                     <h4>Our Fund Performance</h4>
-                    <div class="metric-value fund-metric">+59.69%</div>
+                    <div class="metric-value fund-metric">+62.51%</div>
                     <p><strong>Initial:</strong> ₹${amount.toLocaleString('en-IN')}</p>
                     <p><strong>Final Value:</strong> ₹${fundTotal.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
                     <p><strong>Profit:</strong> ₹${fundProfit.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
@@ -493,7 +493,7 @@
                 
                 <div class="metric-card">
                     <h4>NIFTY 250 Smallcap Index</h4>
-                    <div class="metric-value index-metric">+16.69%</div>
+                    <div class="metric-value index-metric">+17.55%</div>
                     <p><strong>Initial:</strong> ₹${amount.toLocaleString('en-IN')}</p>
                     <p><strong>Final Value:</strong> ₹${niftyTotal.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
                     <p><strong>Profit:</strong> ₹${niftyProfit.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
